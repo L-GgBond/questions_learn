@@ -12,9 +12,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Constants\ErrorCode;
 use App\Exception\BusinessException;
 use Hyperf\HttpServer\Annotation\Controller;
 use Hyperf\HttpServer\Annotation\GetMapping;
+use function Hyperf\Translation\trans;
 
 #[Controller("/index")]
 class IndexController extends AbstractController
@@ -34,9 +36,19 @@ class IndexController extends AbstractController
     #[GetMapping(path: "info/{id:\d+}")]
     public function info(int $id)
     {
-        if($id <= 0){
-            throw new BusinessException(message: "id无效");
+        if ($id <= 0) {
+            $msg = ErrorCode::getMessage(ErrorCode::PARAM_REQUIRED, ['field' => '武器ID']);
+            throw new BusinessException($msg, ErrorCode::PARAM_REQUIRED);
         }
+
         return $this->responseJson->success($id);
     }
+
+    #[GetMapping(path: "test")]
+    public function test()
+    {
+//        dump(convert_size(memory_get_usage(true)));
+        return convert_size(memory_get_usage(true));
+    }
+
 }

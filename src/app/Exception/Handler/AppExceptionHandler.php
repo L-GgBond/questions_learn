@@ -14,12 +14,9 @@ namespace App\Exception\Handler;
 
 use App\Components\Response;
 use App\Exception\BusinessException;
-use Hyperf\Context\ApplicationContext;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\ExceptionHandler\ExceptionHandler;
 use Hyperf\HttpMessage\Exception\HttpException;
-use Hyperf\HttpMessage\Stream\SwooleStream;
-use Monolog\Formatter\FormatterInterface;
 use Psr\Http\Message\ResponseInterface;
 use Hyperf\Validation\ValidationException;
 use Throwable;

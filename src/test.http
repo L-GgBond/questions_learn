@@ -1,9 +1,19 @@
 ### 测试返回失败
 GET http://127.0.0.1:9501/index/info/a
+Accept: application/json
+X-Language: en
 
 ###
 GET http://127.0.0.1:9501/index/info/0
+Accept: application/json
+X-Language: ja
 
 ### 测试返回成功
 GET http://127.0.0.1:9501/index/info/1
+Accept: application/json
+X-Language: ja
+
+
+### 测试app/Utils/Functions.php convert_size
+GET http://127.0.0.1:9501/index/test
 
