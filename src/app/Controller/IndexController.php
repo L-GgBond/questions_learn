@@ -15,9 +15,10 @@ namespace App\Controller;
 use Hyperf\HttpServer\Annotation\Controller;
 use Hyperf\HttpServer\Annotation\GetMapping;
 
-#[Controller]
+#[Controller("/index")]
 class IndexController extends AbstractController
 {
+    #[GetMapping(path: "")]
     public function index()
     {
         $user = $this->request->input('user', 'Hyperf');
@@ -32,10 +33,6 @@ class IndexController extends AbstractController
     #[GetMapping(path: "info/{id:\d+}")]
     public function info(int $id)
     {
-        if($id > 0){
-            return $this->responseJson->success('data info' . $id);
-        }else{
-            return $this->responseJson->fail(500,'error info');
-        }
+        return $this->responseJson->success($id);
     }
 }

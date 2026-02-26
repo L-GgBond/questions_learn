@@ -14,6 +14,7 @@ services:
     networks:
       - hyperf_net
     tty: true
+    entrypoint: ["php", "bin/hyperf.php", "server:watch"]
 
 networks:
   hyperf_net:
