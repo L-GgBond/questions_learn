@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Exception\BusinessException;
 use Hyperf\HttpServer\Annotation\Controller;
 use Hyperf\HttpServer\Annotation\GetMapping;
 
@@ -33,6 +34,9 @@ class IndexController extends AbstractController
     #[GetMapping(path: "info/{id:\d+}")]
     public function info(int $id)
     {
+        if($id <= 0){
+            throw new BusinessException(message: "id无效");
+        }
         return $this->responseJson->success($id);
     }
 }

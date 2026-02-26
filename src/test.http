@@ -1,6 +1,9 @@
 ### 测试返回失败
 GET http://127.0.0.1:9501/index/info/a
 
+###
+GET http://127.0.0.1:9501/index/info/0
+
 ### 测试返回成功
 GET http://127.0.0.1:9501/index/info/1
 
