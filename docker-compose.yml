@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  hyperf_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hyperf_questions
+    restart: unless-stopped
+    ports:
+      - "9501:9501"  # 宿主机 9501 映射容器 9501
+    volumes:
+      - ./src:/var/www
+    networks:
+      - hyperf_net
+    tty: true
+
+networks:
+  hyperf_net:
