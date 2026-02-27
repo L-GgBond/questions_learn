@@ -22,3 +22,6 @@ GET http://127.0.0.1:9501/index/demo?a=1
 
 ### 测试使用协程上下文的例子 a=1 输出"a": "1"
 GET http://127.0.0.1:9501/index/demo1?a=1
+
+### 测试数据库
+GET http://127.0.0.1:9501/index/demodb

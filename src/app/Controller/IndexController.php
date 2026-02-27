@@ -16,6 +16,7 @@ use App\Constants\ErrorCode;
 use App\Exception\BusinessException;
 use Hyperf\Context\Context;
 use Hyperf\Coroutine\Coroutine;
+use Hyperf\DbConnection\Db;
 use Hyperf\HttpServer\Annotation\Controller;
 use Hyperf\HttpServer\Annotation\GetMapping;
 use function Hyperf\Translation\trans;
@@ -86,5 +87,12 @@ class IndexController extends AbstractController
             'a' => Context::get('a'),
         ];
 
+    }
+
+    #[GetMapping(path: "demodb")]
+    public function demodb()
+    {
+        $result = Db::select('SELECT * FROM email_code;');
+        return $this->responseJson->success($result);
     }
 }
