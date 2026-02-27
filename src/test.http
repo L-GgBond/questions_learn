@@ -28,3 +28,10 @@ GET http://127.0.0.1:9501/index/demodb
 
 ### 邮件发送
 POST http://127.0.0.1:9501/auth/send-code?email=1131730668@qq.com
+Accept: application/json
+X-Language: ja
+
+### 验证邮件
+POST http://127.0.0.1:9501/auth/login?email=1131730668@qq.com&code=1234
+Accept: application/json
+X-Language: ja

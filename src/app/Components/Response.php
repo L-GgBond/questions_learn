@@ -15,12 +15,12 @@ class Response
      * 成功响应
      * @param array|object $data
      */
-    public function success(mixed $data = []): \Psr\Http\Message\ResponseInterface
+    public function success(mixed $data = [], string $msg = 'success'): \Psr\Http\Message\ResponseInterface
     {
         return $this->response->json([
             'code' => 0,
             'data' => $data,
-            'msg' => 'success',
+            'msg' => $msg,
         ]);
     }
 

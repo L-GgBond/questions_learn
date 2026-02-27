@@ -42,7 +42,7 @@ class AuthController extends AbstractController
         // 直接调 Service，防刷、存 Redis、扔队列全在里面完成了！
         $this->verificationService->sendEmailCode($email, $scene);
 
-        return $this->responseJson->success('验证码发送成功');
+        return $this->responseJson->success([], '验证码发送成功');
     }
 
     /**
