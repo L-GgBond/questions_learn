@@ -10,4 +10,6 @@ declare(strict_types=1);
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
 return [
+    // 注册异步队列的消费者进程，系统启动时会自动拉起它！
+    Hyperf\AsyncQueue\Process\ConsumerProcess::class,
 ];

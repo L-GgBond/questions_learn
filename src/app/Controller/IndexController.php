@@ -21,11 +21,16 @@ use Hyperf\HttpServer\Annotation\Controller;
 use Hyperf\HttpServer\Annotation\GetMapping;
 use function Hyperf\Translation\trans;
 
+
 #[Controller("/index")]
 class IndexController extends AbstractController
 {
 
     public $a;
+
+    public function __construct(
+    ) {
+    }
 
     #[GetMapping(path: "")]
     public function index()
@@ -95,4 +100,6 @@ class IndexController extends AbstractController
         $result = Db::select('SELECT * FROM email_code;');
         return $this->responseJson->success($result);
     }
+
+
 }

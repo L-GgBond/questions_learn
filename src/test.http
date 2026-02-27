@@ -25,3 +25,6 @@ GET http://127.0.0.1:9501/index/demo1?a=1
 
 ### 测试数据库
 GET http://127.0.0.1:9501/index/demodb
+
+### 邮件发送
+POST http://127.0.0.1:9501/auth/send-code?email=1131730668@qq.com
