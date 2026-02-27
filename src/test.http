@@ -17,3 +17,8 @@ X-Language: ja
 ### 测试app/Utils/Functions.php convert_size
 GET http://127.0.0.1:9501/index/test
 
+### 测试不使用协程上下文的例子 a=1 输出"a": "1"或其他值 a 的输出值比较混乱
+GET http://127.0.0.1:9501/index/demo?a=1
+
+### 测试使用协程上下文的例子 a=1 输出"a": "1"
+GET http://127.0.0.1:9501/index/demo1?a=1
