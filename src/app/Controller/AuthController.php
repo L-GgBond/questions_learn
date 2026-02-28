@@ -12,6 +12,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Request\SendCodeRequest;
+use App\Request\SignUpRequest;
+use App\Service\JwtService;
+use App\Service\UserService;
 use App\Service\VerificationService;
 use Hyperf\HttpServer\Annotation\Controller;
 use Hyperf\HttpServer\Annotation\PostMapping;
@@ -21,7 +25,9 @@ class AuthController extends AbstractController
 {
 
     public function __construct(
-        private VerificationService $verificationService
+        private VerificationService $verificationService,
+        private UserService $userService,
+        private JWTService $jwtService,
     ) {
     }
 
@@ -29,15 +35,11 @@ class AuthController extends AbstractController
      * 接口 1：请求发送验证码
      */
     #[PostMapping(path: "send-code")]
-    public function sendCode()
+    public function sendCode(SendCodeRequest $request)
     {
         $email = $this->request->input('email');
         // 大厂规范：必须要求前端传场景值，比如 register, reset_pwd, login
         $scene = $this->request->input('scene', 'login');
-
-        if (empty($email)) {
-            return $this->responseJson->fail(400, '邮箱不能为空');
-        }
 
         // 直接调 Service，防刷、存 Redis、扔队列全在里面完成了！
         $this->verificationService->sendEmailCode($email, $scene);
@@ -57,10 +59,26 @@ class AuthController extends AbstractController
         // 1. 调用 Service 进行极其严格的校验
         $this->verificationService->verifyEmailCode($email, $code, 'login');
 
-        // 2. 校验走到这里说明绝对通过了，并且旧验证码已经被销毁了
-        // 此处开始执行正常的查数据库、生成 JWT Token 等登录逻辑...
+        $user = $this->userService->getUserByEmail($email);
 
-        return $this->responseJson->success(['token' => 'eyJhbGciOiJIUzI1...']);
+        $tokenData = $this->jwtService->generateToken($user['id']);
+
+        return $this->responseJson->success(['token' => $tokenData]);
     }
 
+    /**
+     * 注册.
+     * @param SignUpRequest $signUpRequest
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    #[PostMapping(path: "signup")]
+    public function signup(SignUpRequest $signUpRequest)
+    {
+        // 获取已验证的数据
+        $validated = $signUpRequest->validated();
+
+       $this->userService->signup($validated);
+
+        return $this->responseJson->success();
+    }
 }

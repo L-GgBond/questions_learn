@@ -135,6 +135,8 @@
       <excludeFolder url="file://$MODULE_DIR$/src/vendor/hyperf/async-queue" />
       <excludeFolder url="file://$MODULE_DIR$/src/vendor/symfony/mailer" />
       <excludeFolder url="file://$MODULE_DIR$/src/vendor/symfony/mime" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/firebase/php-jwt" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/hyperf/view" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
