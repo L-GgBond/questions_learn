@@ -26,17 +26,27 @@ GET http://127.0.0.1:9501/index/demo1?a=1
 ### 测试数据库
 GET http://127.0.0.1:9501/index/demodb
 
-### 邮件发送
-POST http://127.0.0.1:9501/auth/send-code?email=1131730668@qq.com&scene=register
+### 邮件发送注册
+POST http://127.0.0.1:9501/auth/send-code?email=123@qq.com&scene=register
+Accept: application/json
+X-Language: ja
+
+### 邮件发送登陆
+POST http://127.0.0.1:9501/auth/send-code?email=123@qq.com&scene=login
 Accept: application/json
 X-Language: ja
 
 ### 验证邮件
-POST http://127.0.0.1:9501/auth/login?email=1131730668@qq.com&code=103369
+POST http://127.0.0.1:9501/auth/login?email=123@qq.com&code=103369
 Accept: application/json
 X-Language: ja
 
 ### 注册用户
-POST http://127.0.0.1:9501/auth/signup?email=1131730668@qq.com&code=103369&password=123456&password_confirmation=123456
+POST http://127.0.0.1:9501/auth/signup?email=123@qq.com&code=103369&password=123456&password_confirmation=123456
+Accept: application/json
+X-Language: ja
+
+### 登陆用户
+POST http://127.0.0.1:9501/auth/login?email=123@qq.com&password=123456
 Accept: application/json
 X-Language: ja

@@ -10,6 +10,7 @@ class UserService
 {
     public function __construct(
         private User $user,
+        private JWTService $jwtService,
     ){
     }
 
@@ -22,6 +23,26 @@ class UserService
     {
         $user = $this->user->where('email', $email)->first();
         return $user ? $user->toArray() : null;
+    }
+
+    /**
+     * 登陆
+     * @param array $credentials
+     * @return array
+     */
+    public function login(array $credentials): array
+    {
+        $user = $this->getUserByEmail($credentials['email']);
+
+        // 严谨校验：合并判断条件，防止执行不必要的 password_verify 消耗 CPU
+        if (!$user || !password_verify($credentials['password'], $user['password'])) {
+            // 统一抛出 401 状态码更符合 HTTP 语义
+            throw new BusinessException('账号或密码错误', 401);
+        }
+
+        // 校验通过，签发 Token
+        return $this->jwtService->generateToken((int) $user['id']);
+
     }
 
     /**

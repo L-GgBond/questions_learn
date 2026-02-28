@@ -12,9 +12,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Request\LoginRequest;
 use App\Request\SendCodeRequest;
 use App\Request\SignUpRequest;
-use App\Service\JwtService;
 use App\Service\UserService;
 use App\Service\VerificationService;
 use Hyperf\HttpServer\Annotation\Controller;
@@ -27,7 +27,6 @@ class AuthController extends AbstractController
     public function __construct(
         private VerificationService $verificationService,
         private UserService $userService,
-        private JWTService $jwtService,
     ) {
     }
 
@@ -51,19 +50,15 @@ class AuthController extends AbstractController
      * 接口 2：用户提交表单（登录/注册）
      */
     #[PostMapping(path: "login")]
-    public function login()
+    public function login(LoginRequest $request)
     {
-        $email = $this->request->input('email');
-        $code = $this->request->input('code');
+        // 1. 获取经过严格校验的数据 (如拦截非法邮箱、限制密码长度)
+        $credentials = $request->validated();
 
-        // 1. 调用 Service 进行极其严格的校验
-        $this->verificationService->verifyEmailCode($email, $code, 'login');
+        // 2. 将认证逻辑全权交由 AuthService 处理
+        $tokenData = $this->userService->login($credentials);
 
-        $user = $this->userService->getUserByEmail($email);
-
-        $tokenData = $this->jwtService->generateToken($user['id']);
-
-        return $this->responseJson->success(['token' => $tokenData]);
+        return $this->responseJson->success(['token' => $tokenData],'登陆成功');
     }
 
     /**
