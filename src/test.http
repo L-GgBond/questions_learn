@@ -50,3 +50,9 @@ X-Language: ja
 POST http://127.0.0.1:9501/auth/login?email=123@qq.com&password=123456
 Accept: application/json
 X-Language: ja
+
+### 退出登陆
+POST http://127.0.0.1:9501/auth/logout
+Accept: application/json
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJoeXBlcmYtYXBpIiwiaWF0IjoxNzcyMjU1NjY1LCJleHAiOjE3NzIyNjI4NjUsInVpZCI6MX0.SwQM-i7JMiY-NWPxrTUR8N6NxSIu-DBnAv__JB2Z9_k
+X-Language: ja

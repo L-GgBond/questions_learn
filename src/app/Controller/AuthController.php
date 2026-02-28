@@ -15,9 +15,11 @@ namespace App\Controller;
 use App\Request\LoginRequest;
 use App\Request\SendCodeRequest;
 use App\Request\SignUpRequest;
+use App\Service\JwtService;
 use App\Service\UserService;
 use App\Service\VerificationService;
 use Hyperf\HttpServer\Annotation\Controller;
+use Hyperf\HttpServer\Annotation\GetMapping;
 use Hyperf\HttpServer\Annotation\PostMapping;
 
 #[Controller("/auth")]
@@ -27,6 +29,7 @@ class AuthController extends AbstractController
     public function __construct(
         private VerificationService $verificationService,
         private UserService $userService,
+        private JwtService $jwtService,
     ) {
     }
 
@@ -75,5 +78,32 @@ class AuthController extends AbstractController
        $this->userService->signup($validated);
 
         return $this->responseJson->success();
+    }
+
+    /**
+     * 退出登陆
+     */
+    #[PostMapping(path: "logout")]
+    public function logout()
+    {
+        // 1. 从请求头提取 Bearer Token
+        $token = $this->extractToken($this->request->header('Authorization'));
+
+        if($token){
+            // 2. 将 Token 加入黑名单使其立即失效
+            $this->jwtService->invalidateToken($token);
+        }
+
+        // 3. 无论 Token 是否有效，为了防止暴露内部状态，统一返回成功
+        return $this->responseJson->success([], '已安全退出');
+    }
+
+    public function extractToken(string $token): ?string
+    {
+//        if (str_starts_with($token, 'Bearer ')) {
+//            return substr($token, 7);
+//        }
+//        return null;
+        return $token;
     }
 }

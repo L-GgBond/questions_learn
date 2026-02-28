@@ -14,15 +14,19 @@ namespace App\Controller;
 
 use App\Constants\ErrorCode;
 use App\Exception\BusinessException;
+use App\Middleware\AuthMiddleware;
 use Hyperf\Context\Context;
 use Hyperf\Coroutine\Coroutine;
 use Hyperf\DbConnection\Db;
 use Hyperf\HttpServer\Annotation\Controller;
 use Hyperf\HttpServer\Annotation\GetMapping;
+use Hyperf\HttpServer\Annotation\Middleware;
 use function Hyperf\Translation\trans;
 
 
 #[Controller("/index")]
+// 🚀 使用注解为整个 Controller 或单个方法绑定鉴权中间件
+#[Middleware(AuthMiddleware::class)]
 class IndexController extends AbstractController
 {
 
