@@ -56,3 +56,16 @@ POST http://127.0.0.1:9501/auth/logout
 Accept: application/json
 Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJoeXBlcmYtYXBpIiwiaWF0IjoxNzcyMjU1NjY1LCJleHAiOjE3NzIyNjI4NjUsInVpZCI6MX0.SwQM-i7JMiY-NWPxrTUR8N6NxSIu-DBnAv__JB2Z9_k
 X-Language: ja
+
+### 测试redis
+GET http://127.0.0.1:9501/redis/redis
+Accept: application/json
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJoeXBlcmYtYXBpIiwiaWF0IjoxNzcyMjU1NjY1LCJleHAiOjE3NzIyNjI4NjUsInVpZCI6MX0.SwQM-i7JMiY-NWPxrTUR8N6NxSIu-DBnAv__JB2Z9_k
+X-Language: ja
+
+### 测试userinfo
+GET http://127.0.0.1:9501/index/userinfo
+Accept: application/json
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJoeXBlcmYtYXBpIiwiaWF0IjoxNzcyMjc4ODQxLCJleHAiOjE3NzIyODYwNDEsInVpZCI6MX0.0Ho6G6avl3kayAJfKnEJBJcPT5mOpo5V5I7E7rTS1tg
+X-Language: ja
+

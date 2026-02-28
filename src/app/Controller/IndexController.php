@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Components\CurrentUser;
 use App\Constants\ErrorCode;
 use App\Exception\BusinessException;
 use App\Middleware\AuthMiddleware;
@@ -33,6 +34,7 @@ class IndexController extends AbstractController
     public $a;
 
     public function __construct(
+        protected CurrentUser $currentUser,
     ) {
     }
 
@@ -105,5 +107,13 @@ class IndexController extends AbstractController
         return $this->responseJson->success($result);
     }
 
+
+    #[GetMapping(path: "userinfo")]
+    public function userinfo()
+    {
+        $authorId = $this->currentUser->id();
+        $nickname = $this->currentUser->info()->nickname;
+        return $this->responseJson->success(['$authorId' => $authorId, '$nickname' => $nickname]);
+    }
 
 }
